@@ -67,4 +67,12 @@ public class CSVService {
             return false;
         }
     }
+      public Goods saveGood(GoodsDto goodsDto){
+        Goods goods = null;
+        if(goodsDto != null) {
+             goods = new Goods(goodsDto.getId(), goodsDto.getName(), goodsDto.getPrice(), goodsDto.getDescription(), goodsDto.getTotalStock());
+        }
+        Goods resp = repository.save(goods);
+        return resp;
+    }
 }
