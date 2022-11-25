@@ -55,6 +55,16 @@ public class CSVController {
             return new ResponseEntity<>((List<Goods>) null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> createGood(@RequestBody GoodsDto goods){
+        try{
+            Goods ds = fileService.saveGood(goods);
+            return new ResponseEntity<>(ds, HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage("Error in good creation"));
+        }
+    }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Goods> updateGood(@PathVariable(value = "id") Long id, @RequestBody GoodsDto goods){
